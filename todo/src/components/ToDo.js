@@ -1,10 +1,12 @@
 import React from 'react'
+import './ToDo.css'
 
  const ToDo = props => {
 
     return (
         <div>
-            <p>{props.todo.item}</p>
+            <p onClick={(e) => props.toggleCompleted(e, props.todo)} 
+            className={`item${props.todo.completed ? ' completed' : ' uncompleted'}`}> {props.todo.item}</p>
         </div>
     )
 }

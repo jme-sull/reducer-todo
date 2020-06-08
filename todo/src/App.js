@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import { initalState, reducer } from './reducers/reducer.js'
 
-import ToDoForm from './components/ToDoForm';
+
 import ToDoList from './components/ToDoList'
 
 
@@ -18,17 +18,33 @@ function App() {
         setFormInput(e.target.value)
     }
 
-    const handleSubmit = e => {
-      dispatch({
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      dispatch( {
         type: 'ADD',
-        payload: e.target.value
+        payload: formInput
+      } )
+    }
+
+    const toggleCompleted = (e, item) => {
+      e.preventDefault()
+      dispatch({
+        type: 'TOGGLE',
+        payload: item.id
+      })
+      console.log(item)
+    }
+
+    const clearCompleted = () => {
+      dispatch({
+        type: 'CLEAR_COMPLETED'
       })
     }
 
   return (
     <div className='App'>
       <h2>My Tasks</h2>
-      <ToDoList ToDoItems={state} />
+      <ToDoList toggleCompleted={toggleCompleted} ToDoItems={state}/>
 
       <h3>Add New Task</h3>
 
@@ -41,9 +57,12 @@ function App() {
                 />
                 <button style={{width:'5rem'}}>Submit</button>
         </form>
+        <button onClick={() => clearCompleted()}>Clear Completed</button>
     </div>
 
   )
 }
 
 export default App;
+
+
