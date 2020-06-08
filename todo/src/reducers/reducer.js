@@ -14,13 +14,11 @@ export const reducer = (state, action) => {
                     console.log('it ran!')
                     return [
                             ...state,
-
+                            
                             {
-
                             item: action.payload,
                             completed: false,
                             id: new Date()
-                            
                             }
                         ]
                 default: 
